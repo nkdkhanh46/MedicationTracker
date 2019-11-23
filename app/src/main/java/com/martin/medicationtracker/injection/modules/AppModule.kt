@@ -1,4 +1,4 @@
-package com.martin.medicationtracker.dependencyinjection.modules
+package com.martin.medicationtracker.injection.modules
 
 import android.app.Application
 import android.content.Context

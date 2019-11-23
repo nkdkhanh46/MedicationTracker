@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MedicationTracker</string>
+    <string name="tutorial_skip">Skip</string>
+    <string name="tutotial_title_1">Intro 1</string>
+    <string name="tutotial_description_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="tutotial_title_2">Intro 2</string>
+    <string name="tutotial_title_3">Intro 3</string>
+    <string name="tutotial_description_2">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</string>
+    <string name="tutotial_description_3">Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</string>
+    <string name="tutorial_get_started">Get started</string>
 </resources>

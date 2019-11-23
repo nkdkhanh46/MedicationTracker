@@ -1,4 +1,4 @@
-package com.martin.medicationtracker.dependencyinjection
+package com.martin.medicationtracker.injection
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
