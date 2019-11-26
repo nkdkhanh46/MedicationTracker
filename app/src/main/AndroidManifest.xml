@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.martin.medicationtracker">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".application.MainApplication"
         android:allowBackup="true"
@@ -21,6 +24,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".features.home.HomeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".features.addmedication.AddMedicationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".features.addmedication.orccapture.OcrCaptureActivity"
             android:screenOrientation="portrait"/>
     </application>
 

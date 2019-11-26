@@ -103,7 +103,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/bg_red_border_ripple"
+            android:background="@drawable/bg_rounded_green_ripple"
             android:textColor="@color/colorWhite"
             android:text="@string/tutorial_get_started"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

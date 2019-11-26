@@ -2,7 +2,6 @@ package com.martin.medicationtracker.features.tutorial
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,10 +12,8 @@ import com.martin.medicationtracker.R
 import com.martin.medicationtracker.application.MainApplication
 import com.martin.medicationtracker.base.BaseActivity
 import com.martin.medicationtracker.databinding.ActivityTutorialBinding
-import com.martin.medicationtracker.features.home.ImageAdapter
 import com.martin.medicationtracker.customviews.SingleSnapHelper
 import com.martin.medicationtracker.features.home.HomeActivity
-import com.martin.medicationtracker.models.Tutorial
 import kotlinx.android.synthetic.main.activity_tutorial.*
 
 
@@ -50,7 +47,10 @@ class TutorialActivity : BaseActivity() {
 
     private fun setupImagesPager() {
         val screenWidth = this.resources.displayMetrics.widthPixels
-        val imagesAdapter = ImageAdapter(screenWidth, viewModel.tutorials)
+        val imagesAdapter = ImageAdapter(
+            screenWidth,
+            viewModel.tutorials
+        )
 
         val snapHelper = SingleSnapHelper()
         snapHelper.attachToRecyclerView(rvImages)

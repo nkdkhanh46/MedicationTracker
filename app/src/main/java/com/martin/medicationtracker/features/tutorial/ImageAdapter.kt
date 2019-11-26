@@ -1,4 +1,4 @@
-package com.martin.medicationtracker.features.home
+package com.martin.medicationtracker.features.tutorial
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

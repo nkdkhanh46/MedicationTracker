@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.martin.medicationtracker.features.addmedication.AddMedicationViewModel" />
+        <import type="android.view.View"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_very_large"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="@dimen/text_very_large"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextPrimary"
+            android:textAlignment="center"
+            android:text="@string/add_medication_title"/>
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="28dp"
+            android:paddingTop="@dimen/spacing_very_small"
+            android:paddingBottom="@dimen/spacing_very_small"
+            app:layout_constraintStart_toEndOf="@id/ivCalendar"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintEnd_toEndOf="@id/tvTitle"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/colorTextPrimary"
+            android:textAlignment="center"
+            android:hint="@string/add_medication_doctor_visit_date"
+            android:text="@{viewModel.visitDate}"/>
+
+        <ImageView
+            android:id="@+id/ivCalendar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginBottom="@dimen/spacing_very_small"
+            app:layout_constraintStart_toStartOf="@id/tvTitle"
+            app:layout_constraintBottom_toBottomOf="@id/tvDate"
+            android:background="?attr/selectableItemBackground"
+            android:adjustViewBounds="true"
+            android:tint="@color/colorPrimary"
+            android:src="@drawable/ic_calendar"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintStart_toStartOf="@id/tvTitle"
+            app:layout_constraintEnd_toEndOf="@id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvDate"
+            android:background="#939393"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="@{viewModel.editMode ? View.GONE : View.VISIBLE}"
+            android:id="@+id/rvMedications"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_very_large"
+            app:layout_constraintTop_toBottomOf="@id/tvDate"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:visibility="@{viewModel.editMode ? View.GONE : View.VISIBLE}"
+            android:id="@+id/btnAddMedication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:tint="@color/colorWhite"
+            android:src="@drawable/ic_add"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:visibility="@{viewModel.editMode ? View.VISIBLE : View.GONE}"
+            android:id="@+id/vAddMedication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_very_large"
+            android:padding="@dimen/spacing_normal"
+            app:layout_constraintTop_toBottomOf="@id/tvDate"
+            android:background="@color/colorGreyLight">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etMedicationName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="@dimen/text_large"
+                android:textStyle="bold"
+                android:textColor="@color/colorTextPrimary"
+                android:hint="@string/add_medication_name"/>
+
+            <TextView
+                android:id="@+id/tvForm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_very_large"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etMedicationName"
+                app:layout_constraintEnd_toStartOf="@id/tvDose"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/colorTextSecondary"
+                android:textAlignment="center"
+                android:text="@string/add_medication_form"/>
+
+            <TextView
+                android:id="@+id/tvTablet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                app:layout_constraintStart_toStartOf="@id/tvForm"
+                app:layout_constraintTop_toBottomOf="@id/tvForm"
+                app:layout_constraintEnd_toEndOf="@id/tvForm"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/colorTextSecondary"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:text="@string/add_medication_tablet"/>
+
+            <TextView
+                android:id="@+id/tvDose"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/tvForm"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvForm"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/colorTextSecondary"
+                android:textAlignment="center"
+                android:text="@string/add_medication_dose"/>
+
+            <ImageView
+                android:id="@+id/btnDecreaseDose"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:padding="@dimen/spacing_small"
+                app:layout_constraintTop_toTopOf="@id/tvDoseCount"
+                app:layout_constraintEnd_toStartOf="@id/tvDoseCount"
+                app:layout_constraintBottom_toBottomOf="@id/tvDoseCount"
+                android:background="?attr/selectableItemBackground"
+                android:adjustViewBounds="true"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/ic_add"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvDoseCount"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/tvForm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvTablet"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/colorTextPrimary"
+                android:textAlignment="center"
+                android:text="@{viewModel.dose}"
+                tools:text="1000"/>
+
+            <ImageView
+                android:id="@+id/btnIncreaseDose"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:padding="@dimen/spacing_small"
+                app:layout_constraintStart_toEndOf="@id/tvDoseCount"
+                app:layout_constraintBottom_toBottomOf="@id/btnDecreaseDose"
+                android:background="?attr/selectableItemBackground"
+                android:adjustViewBounds="true"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/ic_add"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvFrequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_very_large"
+                app:layout_constraintStart_toStartOf="@id/etMedicationName"
+                app:layout_constraintTop_toBottomOf="@id/tvTablet"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/colorTextSecondary"
+                android:textAlignment="center"
+                android:text="@string/add_medication_frequency"/>
+
+            <ImageView
+                android:id="@+id/btnDecreaseFrequency"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:padding="@dimen/spacing_small"
+                app:layout_constraintStart_toStartOf="@id/tvFrequency"
+                app:layout_constraintTop_toTopOf="@id/tvFrequencyValue"
+                app:layout_constraintBottom_toBottomOf="@id/tvFrequencyValue"
+                android:background="?attr/selectableItemBackground"
+                android:adjustViewBounds="true"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/ic_add"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvFrequencyValue"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                app:layout_constraintStart_toEndOf="@id/btnDecreaseFrequency"
+                app:layout_constraintTop_toBottomOf="@id/tvFrequency"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/colorTextPrimary"
+                android:textAlignment="center"
+                android:text="@{viewModel.frequency}"
+                tools:text="1000"/>
+
+            <ImageView
+                android:id="@+id/btnIncreaseFrequency"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:padding="@dimen/spacing_small"
+                app:layout_constraintStart_toEndOf="@id/tvFrequencyValue"
+                app:layout_constraintBottom_toBottomOf="@id/btnDecreaseFrequency"
+                android:background="?attr/selectableItemBackground"
+                android:adjustViewBounds="true"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/ic_add"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvTakeMedication"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_very_large"
+                app:layout_constraintStart_toStartOf="@id/etMedicationName"
+                app:layout_constraintTop_toBottomOf="@id/btnIncreaseFrequency"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/colorTextPrimary"
+                android:text="@string/add_medication_take_medication"/>
+
+            <TextView
+                android:id="@+id/tvBefore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_very_small"
+                app:layout_constraintStart_toEndOf="@id/tvTakeMedication"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvTakeMedication"
+                android:background="?attr/selectableItemBackground"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@{viewModel.beforeMeal ? @color/colorPrimary : @color/colorTextSecondary}"
+                android:textStyle='@{viewModel.beforeMeal ? "bold" : "normal"}'
+                android:alpha='@{viewModel.beforeMeal ? 1f : 0.5f}'
+                android:text="@string/add_medication_before"/>
+
+            <TextView
+                android:id="@+id/tvVerticalBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_very_small"
+                app:layout_constraintStart_toEndOf="@id/tvBefore"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvBefore"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/colorTextSecondary"
+                android:textStyle="bold"
+                android:text="@string/add_medication_vertical_bar"/>
+
+            <TextView
+                android:id="@+id/tvAfter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_very_small"
+                app:layout_constraintStart_toEndOf="@id/tvVerticalBar"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvVerticalBar"
+                android:background="?attr/selectableItemBackground"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@{viewModel.beforeMeal ? @color/colorTextSecondary : @color/colorPrimary}"
+                android:textStyle='@{viewModel.beforeMeal ? "normal" : "bold"}'
+                android:alpha='@{viewModel.beforeMeal ? 0.5f : 1f}'
+                android:text="@string/add_medication_after"/>
+
+            <TextView
+                android:id="@+id/tvMeal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_very_small"
+                app:layout_constraintStart_toEndOf="@id/tvAfter"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvTakeMedication"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/colorTextPrimary"
+                android:text="@string/add_medication_meal"/>
+
+            <TextView
+                android:id="@+id/tvSelectTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_very_large"
+                app:layout_constraintStart_toStartOf="@id/tvTakeMedication"
+                app:layout_constraintTop_toBottomOf="@id/tvTakeMedication"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/colorTextPrimary"
+                android:text="@string/add_medication_select_time"/>
+
+            <ImageView
+                android:id="@+id/btnAddTime"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="@dimen/spacing_small"
+                android:padding="@dimen/spacing_small"
+                app:layout_constraintStart_toEndOf="@id/tvSelectTime"
+                app:layout_constraintTop_toTopOf="@id/tvSelectTime"
+                app:layout_constraintBottom_toBottomOf="@id/tvSelectTime"
+                android:background="?attr/selectableItemBackground"
+                android:adjustViewBounds="true"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/ic_add"
+                tools:ignore="ContentDescription" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTimes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/etMedicationName"
+                app:layout_constraintTop_toBottomOf="@id/btnAddTime"
+                app:layout_constraintEnd_toEndOf="@id/etMedicationName"
+                tools:itemCount="2"/>
+
+            <TextView
+                android:id="@+id/btnSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="100dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="@dimen/spacing_very_large"
+                android:padding="@dimen/spacing_small"
+                android:paddingStart="@dimen/spacing_very_large"
+                android:paddingEnd="@dimen/spacing_very_large"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvTimes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/bg_rounded_green_ripple"
+                android:textColor="@color/colorWhite"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:text="@string/add_medication_save"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
