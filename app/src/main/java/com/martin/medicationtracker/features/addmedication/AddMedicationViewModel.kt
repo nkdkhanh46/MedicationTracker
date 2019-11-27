@@ -1,23 +1,32 @@
 package com.martin.medicationtracker.features.addmedication
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.martin.medicationtracker.models.Medication
+import com.martin.medicationtracker.receivers.AlarmReceiver
 import com.martin.medicationtracker.repositories.MedicationRepository
+import com.martin.medicationtracker.utils.AlarmUtils
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class AddMedicationViewModel @Inject constructor(private val medicationRepository: MedicationRepository): ViewModel() {
+
+class AddMedicationViewModel @Inject constructor(
+    private val context: Context,
+    private val medicationRepository: MedicationRepository
+): ViewModel() {
 
     companion object {
         const val NOTIFICATION_NAME_EMPTY = 1
         const val NOTIFICATION_VISIT_DATE_EMPTY = 2
         const val NOTIFICATION_TIMES_EMPTY = 3
         const val NOTIFICATION_ADD_MEDICATION_SUCCESS = 4
+
+        const val DAILY_REMINDER_REQUEST_CODE = 1000
     }
 
     val editMode = MutableLiveData<Boolean>()
@@ -96,11 +105,8 @@ class AddMedicationViewModel @Inject constructor(private val medicationRepositor
     }
 
     fun updateDoctorVisitDate(year: Int, month: Int, date: Int) {
-        medication?.let { medication ->
-            val visitDate = "$date/$month/$year"
-            medication.doctorVisitDate = visitDate
-            this.visitDate.value = visitDate
-        }
+        val visitDate = "$date/$month/$year"
+        this.visitDate.value = visitDate
     }
 
     fun updateBeforeMeal(isBefore: Boolean) {
@@ -129,8 +135,17 @@ class AddMedicationViewModel @Inject constructor(private val medicationRepositor
         viewModelScope.launch {
             medication?.updatedDate = Calendar.getInstance().timeInMillis
             medicationRepository.addMedication(medication!!)
+            setReminders(medication!!.times)
             notification.value = NOTIFICATION_ADD_MEDICATION_SUCCESS
             editMode.value = false
+        }
+    }
+
+    private fun setReminders(times: String) {
+        val array = times.split(";")
+        array.forEach { time ->
+            val values = time.split(":")
+            AlarmUtils.setReminder(context, AlarmReceiver::class.java, values[0].toInt(), values[1].toInt())
         }
     }
 
@@ -142,6 +157,7 @@ class AddMedicationViewModel @Inject constructor(private val medicationRepositor
             return false
         }
 
+        medication?.doctorVisitDate = visitDate.value ?: ""
         if (medication!!.doctorVisitDate.isEmpty()) {
             notification.value = NOTIFICATION_VISIT_DATE_EMPTY
             return false
@@ -157,6 +173,7 @@ class AddMedicationViewModel @Inject constructor(private val medicationRepositor
 
     fun createNewMedication() {
         editMode.value = true
+        times.value?.clear()
         medication = getNewMedication()
         bindMedication()
     }

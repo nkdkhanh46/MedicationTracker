@@ -29,6 +29,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".features.addmedication.orccapture.OcrCaptureActivity"
             android:screenOrientation="portrait"/>
-    </application>
 
+        <receiver android:name=".receivers.AlarmReceiver"/>
+    </application>
 </manifest>
