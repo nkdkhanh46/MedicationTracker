@@ -12,6 +12,7 @@ import com.martin.medicationtracker.application.MainApplication
 import com.martin.medicationtracker.base.BaseActivity
 import com.martin.medicationtracker.databinding.ActivityHomeBinding
 import com.martin.medicationtracker.features.addmedication.AddMedicationActivity
+import com.martin.medicationtracker.features.addsymptoms.AddSymptomsActivity
 import com.martin.medicationtracker.models.Medication
 import com.martin.medicationtracker.models.MedicationStatus
 import kotlinx.android.synthetic.main.activity_home.*
@@ -54,12 +55,16 @@ class HomeActivity : BaseActivity() {
 
     private fun setupEvents() {
         btnAddMedication.setOnClickListener { openAddMedicationScreen() }
-        btnAddSymptoms.setOnClickListener {  }
+        btnAddSymptoms.setOnClickListener { openAddSymptomsScreen() }
         btnSummary.setOnClickListener {  }
     }
 
     private fun openAddMedicationScreen() {
         startActivity(Intent(this, AddMedicationActivity::class.java))
+    }
+
+    private fun openAddSymptomsScreen() {
+        startActivity(Intent(this, AddSymptomsActivity::class.java))
     }
 
     private fun observeChanges() {
@@ -72,12 +77,6 @@ class HomeActivity : BaseActivity() {
         viewModel.medications.observe(this, Observer {
             it?.let { medications ->
                 medicationAdapter?.swapData(medications)
-            }
-        })
-
-        viewModel.medicationRecords.observe(this, Observer {
-            it?.let { medications ->
-                Log.d("Ahihi", "Do ngock")
             }
         })
     }

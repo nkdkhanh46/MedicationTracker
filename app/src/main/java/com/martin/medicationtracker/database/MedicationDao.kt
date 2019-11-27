@@ -17,13 +17,12 @@ interface MedicationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(record: MedicationRecord): Long
 
-    @Query("SELECT medication.*, CASE WHEN EXISTS(select * from medication_record where medication_id = medication.id and created_date = :date) then 1 else 0 end as taken FROM medication ORDER BY updated_date ASC")
-//    @Query("SELECT medication.*, CASE WHEN EXISTS(select * from medication_record where medication_id = medication.id) then 1 else 0 end as taken FROM medication ORDER BY updated_date ASC")
+    @Query("SELECT medication.*, CASE WHEN EXISTS(select * from medication_record where medication_id = medication.id and created_date = :date) then 1 else 0 end as taken FROM medication ORDER BY id DESC")
     fun getMedicationsWithStatus(date: String) : LiveData<List<MedicationStatus>>
 
-    @Query("SELECT * FROM medication ORDER BY updated_date ASC" )
+    @Query("SELECT * FROM medication ORDER BY id DESC" )
     fun getAllMedications() : LiveData<List<Medication>>
 
-    @Query("SELECT * FROM medication_record" )
+    @Query("SELECT * FROM medication_record ORDER BY id DESC" )
     fun getAllMedicationRecords() : LiveData<List<MedicationRecord>>
 }

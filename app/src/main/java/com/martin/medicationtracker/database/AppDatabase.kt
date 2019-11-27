@@ -5,8 +5,13 @@ import androidx.room.RoomDatabase
 import com.martin.medicationtracker.database.AppDatabase.Companion.DB_VERSION
 import com.martin.medicationtracker.models.Medication
 import com.martin.medicationtracker.models.MedicationRecord
+import com.martin.medicationtracker.models.Symptoms
 
-@Database(entities = [Medication::class, MedicationRecord::class], version = DB_VERSION, exportSchema = false)
+@Database(
+    entities = [Medication::class, MedicationRecord::class, Symptoms::class],
+    version = DB_VERSION,
+    exportSchema = false
+)
 abstract class AppDatabase: RoomDatabase() {
 
     companion object {
@@ -15,4 +20,5 @@ abstract class AppDatabase: RoomDatabase() {
     }
 
     abstract fun medicationDao(): MedicationDao
+    abstract fun symptomsDao(): SymptomsDao
 }

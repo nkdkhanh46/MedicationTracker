@@ -41,4 +41,11 @@
     <string name="medication_frequency">%d times a day</string>
     <string name="medication_before_meal">Before meal</string>
     <string name="medication_after_meal">After meal</string>
+    <string name="add_symptoms_title">Add Symptoms</string>
+    <string name="add_symptoms_couch">Couch</string>
+    <string name="add_symptoms_mild">Mild</string>
+    <string name="add_symptoms_moderate">Moderate</string>
+    <string name="add_symptoms_severe">Severe</string>
+    <string name="add_symptoms_wheeze">Wheeze</string>
+    <string name="add_symptoms_other_symptoms">Other symptoms</string>
 </resources>

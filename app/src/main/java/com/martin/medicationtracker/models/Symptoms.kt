@@ -9,7 +9,7 @@ class Symptoms(
     @ColumnInfo(name = "couch_level")
     var couchLevel: Int,
     @ColumnInfo(name = "wheeze_level")
-    var wheezeLevel: String,
+    var wheezeLevel: Int,
     @ColumnInfo(name = "created_date")
     var createdDate: Long,
     @ColumnInfo(name = "others")

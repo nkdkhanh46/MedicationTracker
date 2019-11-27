@@ -8,7 +8,7 @@ import com.martin.medicationtracker.models.Medication
 import com.martin.medicationtracker.models.MedicationRecord
 import com.martin.medicationtracker.models.MedicationStatus
 import com.martin.medicationtracker.models.User
-import com.martin.medicationtracker.repositories.MedicationRepository
+import com.martin.medicationtracker.repositories.DataRepository
 import com.martin.medicationtracker.repositories.UserRepository
 import com.martin.medicationtracker.utils.DateTimeUtils
 import kotlinx.coroutines.launch
@@ -17,15 +17,13 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
     userRepository: UserRepository,
-    private val medicationRepository: MedicationRepository
+    private val medicationRepository: DataRepository
 ): ViewModel() {
 
     val user: LiveData<User> = userRepository.getCurrentUser()
     val medications: LiveData<List<MedicationStatus>> = medicationRepository.getMedicationsWithStatus(
         DateTimeUtils.calToDateString(Calendar.getInstance())
     )
-    val medicationRecords: LiveData<List<MedicationRecord>> = medicationRepository.getAllMedicationRecords()
-
     val username = MutableLiveData<String>()
     val age = MutableLiveData<String>()
     val bloodType = MutableLiveData<String>()

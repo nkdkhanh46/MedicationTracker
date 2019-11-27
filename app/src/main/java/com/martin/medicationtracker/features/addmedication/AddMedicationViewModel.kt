@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.martin.medicationtracker.models.Medication
 import com.martin.medicationtracker.receivers.AlarmReceiver
-import com.martin.medicationtracker.repositories.MedicationRepository
+import com.martin.medicationtracker.repositories.DataRepository
 import com.martin.medicationtracker.utils.AlarmUtils
 import kotlinx.coroutines.launch
 import java.util.*
@@ -17,7 +17,7 @@ import kotlin.collections.ArrayList
 
 class AddMedicationViewModel @Inject constructor(
     private val context: Context,
-    private val medicationRepository: MedicationRepository
+    private val medicationRepository: DataRepository
 ): ViewModel() {
 
     companion object {

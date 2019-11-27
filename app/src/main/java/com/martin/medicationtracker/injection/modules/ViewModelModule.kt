@@ -3,6 +3,7 @@ package com.martin.medicationtracker.injection.modules
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.martin.medicationtracker.features.addmedication.AddMedicationViewModel
+import com.martin.medicationtracker.features.addsymptoms.AddSymptomsViewModel
 import com.martin.medicationtracker.injection.ViewModelFactory
 import com.martin.medicationtracker.injection.ViewModelKey
 import com.martin.medicationtracker.features.home.HomeViewModel
@@ -30,4 +31,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AddMedicationViewModel::class)
     abstract fun bindAddMedicationViewModel(viewModel: AddMedicationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddSymptomsViewModel::class)
+    abstract fun bindAddSymptomsViewModel(viewModel: AddSymptomsViewModel): ViewModel
 }

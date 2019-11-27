@@ -104,6 +104,7 @@
                 android:textSize="@dimen/text_large"
                 android:textStyle="bold"
                 android:textColor="@color/colorTextPrimary"
+                android:inputType="textCapSentences"
                 android:hint="@string/add_medication_name"/>
 
             <TextView

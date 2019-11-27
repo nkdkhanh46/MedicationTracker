@@ -1,8 +1,8 @@
 package com.martin.medicationtracker.injection.modules
 
-import com.martin.medicationtracker.repositories.MedicationRepository
+import com.martin.medicationtracker.repositories.DataRepository
 import com.martin.medicationtracker.repositories.UserRepository
-import com.martin.medicationtracker.repositories.impl.MedicationRepositoryImpl
+import com.martin.medicationtracker.repositories.impl.DataRepositoryImpl
 import com.martin.medicationtracker.repositories.impl.UserRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -14,5 +14,5 @@ class RepositoryModule {
     fun provideUserRepository(impl: UserRepositoryImpl): UserRepository = impl
 
     @Provides
-    fun provideMedicationRepository(impl: MedicationRepositoryImpl): MedicationRepository = impl
+    fun provideDataRepository(impl: DataRepositoryImpl): DataRepository = impl
 }

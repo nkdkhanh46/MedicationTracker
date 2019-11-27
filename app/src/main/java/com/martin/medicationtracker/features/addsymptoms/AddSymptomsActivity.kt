@@ -1,30 +1,21 @@
 package com.martin.medicationtracker.features.addsymptoms
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.martin.medicationtracker.R
 import com.martin.medicationtracker.application.MainApplication
 import com.martin.medicationtracker.base.BaseActivity
-import com.martin.medicationtracker.databinding.ActivityAddMedicationBinding
-import com.martin.medicationtracker.features.addmedication.orccapture.OcrCaptureActivity
-import com.martin.medicationtracker.utils.Constants
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
-import kotlinx.android.synthetic.main.activity_add_medication.*
+import com.martin.medicationtracker.databinding.ActivityAddSymptomsBinding
+import com.martin.medicationtracker.models.SymptomSeverity
+import kotlinx.android.synthetic.main.activity_add_medication.btnSave
+import kotlinx.android.synthetic.main.activity_add_symptoms.*
 
 class AddSymptomsActivity : BaseActivity() {
 
-    private lateinit var viewModel: AddMedicationViewModel
-    private lateinit var binding: ActivityAddMedicationBinding
-    private var timeAdapter: TimeAdapter? = null
-    private var medicationAdapter: MedicationAdapter? = null
+    private lateinit var viewModel: AddSymptomsViewModel
+    private lateinit var binding: ActivityAddSymptomsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,111 +27,51 @@ class AddSymptomsActivity : BaseActivity() {
 
     private fun setupBinding() {
         (application as MainApplication?)?.appComponent?.inject(this)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_medication)
-        viewModel = ViewModelProvider(this, viewModelFactory)[AddMedicationViewModel::class.java]
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_symptoms)
+        viewModel = ViewModelProvider(this, viewModelFactory)[AddSymptomsViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
     }
 
     private fun initView() {
-        val name = intent.getStringExtra(Constants.INTENT_OCR_TEXT)
-        etMedicationName.setText(name)
-        viewModel.updateMedicationName(name?:"")
-        setupTimesList()
-        setupMedicationsList()
-    }
-
-    private fun setupTimesList() {
-        timeAdapter = TimeAdapter()
-        val lm = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        rvTimes.apply {
-            adapter = timeAdapter
-            layoutManager = lm
-        }
-    }
-
-    private fun setupMedicationsList() {
-        medicationAdapter = MedicationAdapter()
-        val lm = LinearLayoutManager(this)
-        rvMedications.apply {
-            adapter = medicationAdapter
-            layoutManager = lm
-        }
     }
 
     private fun setupEvents() {
-        btnSave.setOnClickListener { viewModel.saveMedication() }
+        btnSave.setOnClickListener { saveSymptoms() }
+        btnAddMore.setOnClickListener { viewModel.toggleAddMore() }
+    }
 
-        btnIncreaseFrequency.setOnClickListener { viewModel.increaseFrequency() }
-        btnDecreaseFrequency.setOnClickListener { viewModel.decreaseFrequency() }
-        btnIncreaseDose.setOnClickListener { viewModel.increaseDose() }
-        btnDecreaseDose.setOnClickListener { viewModel.decreaseDose() }
-        tvBefore.setOnClickListener { viewModel.updateBeforeMeal(true) }
-        tvAfter.setOnClickListener { viewModel.updateBeforeMeal(false) }
-        tvDate.setOnClickListener { showDatePicker() }
-        btnAddTime.setOnClickListener { showTimePicker() }
-        etMedicationName.doAfterTextChanged { viewModel.updateMedicationName(it?.toString()?:"") }
-        btnAddMedication.setOnClickListener {
-            viewModel.createNewMedication()
-            openMedicationNameReader()
+    private fun saveSymptoms() {
+        val otherSymptoms = etOthers.text.toString()
+        val couchSeverity: SymptomSeverity = getCouchSeverity()
+        val wheezeSeverity: SymptomSeverity = getWheezeSeverity()
+        viewModel.saveSymptoms(otherSymptoms, couchSeverity, wheezeSeverity)
+    }
+
+    private fun getCouchSeverity(): SymptomSeverity {
+        return when (rgCouch.checkedRadioButtonId) {
+            R.id.rbCouchMild -> SymptomSeverity.MILD
+            R.id.rbCouchModerate -> SymptomSeverity.MODERATE
+            R.id.rbCouchSevere -> SymptomSeverity.SEVERE
+            else -> SymptomSeverity.MILD
         }
     }
 
-    private fun showDatePicker() {
-        val dialog = DatePickerDialog.newInstance { _, year, month, date ->
-            viewModel.updateDoctorVisitDate(year, month+1, date)
-        }
-        dialog.show(supportFragmentManager, "DatePickerDialog")
-    }
-
-    private fun showTimePicker() {
-        val dialog = TimePickerDialog.newInstance({ _, hourOfDay, minute, _ ->
-            viewModel.addTime(hourOfDay, minute) },
-            true
-        )
-        dialog.show(supportFragmentManager, "TimePickerDialog")
-    }
-
-    private fun openMedicationNameReader() {
-        startActivityForResult(Intent(this, OcrCaptureActivity::class.java), Constants.REQUEST_CODE_OCR)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode != Activity.RESULT_OK) return
-
-        if (requestCode == Constants.REQUEST_CODE_OCR) {
-            val name = data?.getStringExtra(Constants.INTENT_OCR_TEXT) ?: return
-            etMedicationName.setText(name)
+    private fun getWheezeSeverity(): SymptomSeverity {
+        return when (rgWheeze.checkedRadioButtonId) {
+            R.id.rbWheezeMild -> SymptomSeverity.MILD
+            R.id.rbWheezeModerate -> SymptomSeverity.MODERATE
+            R.id.rbWheezeSevere -> SymptomSeverity.SEVERE
+            else -> SymptomSeverity.MILD
         }
     }
 
     private fun observeChanges() {
-        viewModel.times.observe(this, Observer {
-            it?.let { times ->
-                timeAdapter?.swapData(times)
+
+        viewModel.saveSuccess.observe(this, Observer {
+            it?.let { success ->
+                if (success) finish()
             }
         })
-        viewModel.medications.observe(this, Observer {
-            it?.let { medications ->
-                medicationAdapter?.swapData(medications)
-            }
-        })
-
-        viewModel.notification.observe(this, Observer {
-            it?.let { notification ->
-                when (notification) {
-                    AddMedicationViewModel.NOTIFICATION_NAME_EMPTY -> showToastMessage(R.string.message_medication_name_empty)
-                    AddMedicationViewModel.NOTIFICATION_VISIT_DATE_EMPTY -> showToastMessage(R.string.message_medication_visit_date_empty)
-                    AddMedicationViewModel.NOTIFICATION_TIMES_EMPTY -> showToastMessage(R.string.message_medication_times_empty)
-                }
-
-                viewModel.notification.value = null
-            }
-        })
-    }
-
-    private fun showToastMessage(message: Int) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }

@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import com.martin.medicationtracker.models.Medication
 import com.martin.medicationtracker.models.MedicationRecord
 import com.martin.medicationtracker.models.MedicationStatus
+import com.martin.medicationtracker.models.Symptoms
 
-interface MedicationRepository {
+interface DataRepository {
 
     fun getAllMedications(): LiveData<List<Medication>>
     fun getMedicationsWithStatus(date: String): LiveData<List<MedicationStatus>>
@@ -13,4 +14,5 @@ interface MedicationRepository {
 
     suspend fun addMedication(medication: Medication): Long
     suspend fun addMedicationRecord(record: MedicationRecord): Long
+    suspend fun addSymptoms(symptoms: Symptoms): Long
 }
