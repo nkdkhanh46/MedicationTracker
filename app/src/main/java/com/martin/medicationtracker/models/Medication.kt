@@ -2,10 +2,11 @@ package com.martin.medicationtracker.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 @Entity
-class Medication(
+open class Medication(
     @ColumnInfo(name = "doctor_visit_date")
     var doctorVisitDate: String,
     @ColumnInfo(name = "name")
@@ -26,4 +27,6 @@ class Medication(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long = 0
+
+    fun getUsingTimes() = times.split(";")
 }

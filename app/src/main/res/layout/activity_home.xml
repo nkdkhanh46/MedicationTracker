@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="com.martin.medicationtracker.features.home.HomeViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -199,6 +200,20 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:visibility="@{(viewModel.medications == null || viewModel.medications.empty) ? View.VISIBLE : View.GONE}"
+            android:id="@+id/tvEmptyMedications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:padding="@dimen/spacing_normal"
+            app:layout_constraintTop_toBottomOf="@id/vButtons"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextPrimary"
+            android:text="@string/home_no_medications_message"/>
+
+        <TextView
+            android:visibility="@{(viewModel.medications == null || viewModel.medications.empty) ? View.GONE : View.VISIBLE}"
             android:id="@+id/tvReminder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -212,6 +227,7 @@
             android:text="@string/home_reminder_question"/>
 
         <TextView
+            android:visibility="@{(viewModel.medications == null || viewModel.medications.empty) ? View.GONE : View.VISIBLE}"
             android:id="@+id/tvDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -221,14 +237,15 @@
             app:layout_constraintEnd_toEndOf="@id/tvReminder"
             android:textColor="@color/colorTextPrimary"
             android:textSize="@dimen/text_normal"
+            android:text="@{viewModel.today}"
             tools:text="20/11/2019"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMedications"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/spacing_large"
             app:layout_constraintTop_toBottomOf="@id/tvDate"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

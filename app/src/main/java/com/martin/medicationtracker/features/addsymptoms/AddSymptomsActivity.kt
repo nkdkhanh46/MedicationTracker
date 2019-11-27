@@ -1,4 +1,4 @@
-package com.martin.medicationtracker.features.addmedication
+package com.martin.medicationtracker.features.addsymptoms
 
 import android.app.Activity
 import android.content.Intent
@@ -19,7 +19,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import kotlinx.android.synthetic.main.activity_add_medication.*
 
-class AddMedicationActivity : BaseActivity() {
+class AddSymptomsActivity : BaseActivity() {
 
     private lateinit var viewModel: AddMedicationViewModel
     private lateinit var binding: ActivityAddMedicationBinding

@@ -36,4 +36,9 @@
     <string name="message_medication_name_empty">Medication name cannot be empty</string>
     <string name="message_medication_visit_date_empty">Visit date cannot be empty</string>
     <string name="message_medication_times_empty">Add at least 1 time.</string>
+    <string name="home_no_medications_message">You have not added any medication.</string>
+    <string name="home_yes">Yes</string>
+    <string name="medication_frequency">%d times a day</string>
+    <string name="medication_before_meal">Before meal</string>
+    <string name="medication_after_meal">After meal</string>
 </resources>

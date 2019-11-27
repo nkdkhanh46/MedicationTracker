@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_normal"
+        android:background="@color/colorGreyLight"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_small"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextPrimary"
+            android:lines="1"
+            android:textAlignment="center"
+            tools:text="Panadol"/>
+
+        <TextView
+            android:id="@+id/tvDose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/colorTextPrimary"
+            android:lines="1"
+            android:textAlignment="center"
+            tools:text="1 tablet"/>
+
+        <TextView
+            android:id="@+id/tvFrequency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/colorTextPrimary"
+            android:lines="1"
+            android:textAlignment="center"
+            tools:text="2 times a day"/>
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/colorTextPrimary"
+            android:lines="1"
+            android:textAlignment="center"
+            tools:text="After meal"/>
+
+        <TextView
+            android:id="@+id/btnConfirmTaken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginBottom="@dimen/spacing_normal"
+            android:padding="@dimen/spacing_very_small"
+            android:paddingStart="@dimen/spacing_very_large"
+            android:paddingEnd="@dimen/spacing_very_large"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_rounded_green_ripple"
+            android:textSize="@dimen/text_large"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:text="@string/home_yes"/>
+
+        <ImageView
+            android:id="@+id/ivDone"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginBottom="@dimen/spacing_normal"
+            android:layout_gravity="center_horizontal"
+            android:tint="@color/colorPrimary"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_checkmark"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+</layout>

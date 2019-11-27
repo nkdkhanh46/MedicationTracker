@@ -1,4 +1,4 @@
-package com.martin.medicationtracker.features.addmedication
+package com.martin.medicationtracker.features.addsymptoms
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -15,7 +15,7 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
-class AddMedicationViewModel @Inject constructor(
+class AddSymptomsViewModel @Inject constructor(
     private val context: Context,
     private val medicationRepository: MedicationRepository
 ): ViewModel() {
