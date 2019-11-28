@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.martin.medicationtracker">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
-        android:allowBackup="true"
+        android:name=".application.MainApplication"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".features.tutorial.TutorialActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+        <activity android:name=".features.home.HomeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".features.addmedication.AddMedicationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".features.addmedication.orccapture.OcrCaptureActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".features.addsymptoms.AddSymptomsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".features.summary.SummaryActivity"
+            android:screenOrientation="portrait"/>
 
+        <receiver android:name=".receivers.AlarmReceiver"/>
+    </application>
 </manifest>

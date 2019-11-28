@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.martin.medicationtracker.features.home.HomeViewModel" />
+        <import type="android.view.View"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="@dimen/spacing_very_large"
+            android:layout_marginTop="@dimen/spacing_very_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:imageUrl="@{viewModel.avatar}"
+            tools:src="@drawable/img_tutorial_1"/>
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_very_large"
+            android:layout_marginEnd="@dimen/spacing_very_large"
+            app:layout_constraintStart_toEndOf="@id/ivAvatar"
+            app:layout_constraintTop_toTopOf="@id/ivAvatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tvAge"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:lines="1"
+            android:ellipsize="end"
+            android:text="@{viewModel.username}"
+            tools:text="Martin"/>
+
+        <TextView
+            android:id="@+id/tvAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/tvUsername"
+            app:layout_constraintTop_toBottomOf="@id/tvUsername"
+            app:layout_constraintBottom_toTopOf="@id/tvBlood"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="@dimen/text_normal"
+            android:lines="1"
+            android:ellipsize="end"
+            android:text="@{viewModel.age}"
+            tools:text="30"/>
+
+        <TextView
+            android:id="@+id/tvYearsOld"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_extreme_small"
+            app:layout_constraintStart_toEndOf="@id/tvAge"
+            app:layout_constraintBaseline_toBaselineOf="@id/tvAge"
+            app:layout_constraintEnd_toEndOf="@id/tvUsername"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="@dimen/text_normal"
+            android:lines="1"
+            android:ellipsize="end"
+            android:text="@string/home_years_old"/>
+
+        <TextView
+            android:id="@+id/tvBlood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/tvAge"
+            app:layout_constraintTop_toBottomOf="@id/tvAge"
+            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="@dimen/text_normal"
+            android:lines="1"
+            android:ellipsize="end"
+            android:text="@string/home_blood_type"/>
+
+        <TextView
+            android:id="@+id/tvBloodValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            app:layout_constraintStart_toEndOf="@id/tvBlood"
+            app:layout_constraintBaseline_toBaselineOf="@id/tvBlood"
+            app:layout_constraintEnd_toEndOf="@id/tvUsername"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="@dimen/text_normal"
+            android:lines="1"
+            android:ellipsize="end"
+            android:text="@{viewModel.bloodType}"
+            tools:text="AB+"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/vButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:padding="@dimen/spacing_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+            android:background="@color/colorRipple">
+
+            <ImageView
+                android:id="@+id/btnAddMedication"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="@dimen/spacing_normal"
+                app:layout_constraintStart_toStartOf="@id/tvAddMedication"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/tvAddMedication"
+                android:background="@drawable/bg_circle_green_ripple"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_add"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvAddMedication"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_marginTop="@dimen/spacing_very_small"
+                android:layout_marginEnd="@dimen/spacing_normal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnAddMedication"
+                app:layout_constraintEnd_toStartOf="@id/tvAddSymptoms"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/text_normal"
+                android:textAlignment="center"
+                android:lines="1"
+                android:ellipsize="end"
+                android:text="@string/home_add_medication"/>
+
+            <ImageView
+                android:id="@+id/btnAddSymptoms"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="@dimen/spacing_normal"
+                app:layout_constraintStart_toStartOf="@id/tvAddSymptoms"
+                app:layout_constraintTop_toTopOf="@id/btnAddMedication"
+                app:layout_constraintEnd_toEndOf="@id/tvAddSymptoms"
+                android:background="@drawable/bg_circle_green_ripple"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_add"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvAddSymptoms"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_marginEnd="@dimen/spacing_normal"
+                app:layout_constraintStart_toEndOf="@id/tvAddMedication"
+                app:layout_constraintTop_toTopOf="@id/tvAddMedication"
+                app:layout_constraintEnd_toStartOf="@id/tvSummary"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/text_normal"
+                android:textAlignment="center"
+                android:lines="1"
+                android:ellipsize="end"
+                android:text="@string/home_add_symptoms"/>
+
+            <ImageView
+                android:id="@+id/btnSummary"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="@dimen/spacing_normal"
+                app:layout_constraintStart_toStartOf="@id/tvSummary"
+                app:layout_constraintTop_toTopOf="@id/btnAddSymptoms"
+                app:layout_constraintEnd_toEndOf="@id/tvSummary"
+                android:background="@drawable/bg_circle_green_ripple"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_summary"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvSummary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_marginEnd="@dimen/spacing_normal"
+                app:layout_constraintStart_toEndOf="@id/tvAddSymptoms"
+                app:layout_constraintTop_toTopOf="@id/tvAddSymptoms"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/text_normal"
+                android:textAlignment="center"
+                android:lines="1"
+                android:ellipsize="end"
+                android:text="@string/home_summary"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:visibility="@{(viewModel.medications == null || viewModel.medications.empty) ? View.VISIBLE : View.GONE}"
+            android:id="@+id/tvEmptyMedications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:padding="@dimen/spacing_normal"
+            app:layout_constraintTop_toBottomOf="@id/vButtons"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextPrimary"
+            android:text="@string/home_no_medications_message"/>
+
+        <TextView
+            android:visibility="@{(viewModel.medications == null || viewModel.medications.empty) ? View.GONE : View.VISIBLE}"
+            android:id="@+id/tvReminder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_very_large"
+            app:layout_constraintStart_toStartOf="@id/ivAvatar"
+            app:layout_constraintTop_toBottomOf="@id/vButtons"
+            app:layout_constraintEnd_toEndOf="@id/tvUsername"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/text_normal"
+            android:textStyle="bold"
+            android:text="@string/home_reminder_question"/>
+
+        <TextView
+            android:visibility="@{(viewModel.medications == null || viewModel.medications.empty) ? View.GONE : View.VISIBLE}"
+            android:id="@+id/tvDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_extreme_small"
+            app:layout_constraintStart_toStartOf="@id/tvReminder"
+            app:layout_constraintTop_toBottomOf="@id/tvReminder"
+            app:layout_constraintEnd_toEndOf="@id/tvReminder"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/text_normal"
+            android:text="@{viewModel.today}"
+            tools:text="20/11/2019"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMedications"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_large"
+            app:layout_constraintTop_toBottomOf="@id/tvDate"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

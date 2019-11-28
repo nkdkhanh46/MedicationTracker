@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.martin.medicationtracker.features.addsymptoms.AddSymptomsViewModel" />
+        <import type="android.view.View"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_very_large"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="@dimen/text_very_large"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextPrimary"
+            android:textAlignment="center"
+            android:text="@string/add_symptoms_title"/>
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_very_small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/colorTextPrimary"
+            android:textAlignment="center"
+            android:text="@{viewModel.date}"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.3"
+            android:orientation="vertical"/>
+
+        <TextView
+            android:id="@+id/tvMild"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            app:layout_constraintStart_toStartOf="@id/glName"
+            app:layout_constraintTop_toBottomOf="@id/tvDate"
+            app:layout_constraintEnd_toStartOf="@id/tvModerate"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/colorTextPrimary"
+            android:text="@string/add_symptoms_mild"/>
+
+        <TextView
+            android:id="@+id/tvModerate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            app:layout_constraintStart_toEndOf="@id/tvMild"
+            app:layout_constraintBaseline_toBaselineOf="@id/tvMild"
+            app:layout_constraintEnd_toStartOf="@id/tvSevere"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/colorTextPrimary"
+            android:text="@string/add_symptoms_moderate"/>
+
+        <TextView
+            android:id="@+id/tvSevere"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            app:layout_constraintStart_toEndOf="@id/tvModerate"
+            app:layout_constraintBaseline_toBaselineOf="@id/tvModerate"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/colorTextPrimary"
+            android:text="@string/add_symptoms_severe"/>
+
+        <TextView
+            android:id="@+id/tvCouch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/rgCouch"
+            app:layout_constraintEnd_toEndOf="@id/glName"
+            app:layout_constraintBottom_toBottomOf="@id/rgCouch"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/colorTextPrimary"
+            android:text="@string/add_symptoms_couch"/>
+
+        <RadioGroup
+            android:id="@+id/rgCouch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_very_small"
+            app:layout_constraintStart_toStartOf="@id/glName"
+            app:layout_constraintTop_toBottomOf="@id/tvMild"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <RadioButton
+                android:id="@+id/rbCouchMild"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="2"/>
+
+            <RadioButton
+                android:id="@+id/rbCouchModerate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="2"/>
+
+            <RadioButton
+                android:id="@+id/rbCouchSevere"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tvWheeze"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/rgWheeze"
+            app:layout_constraintEnd_toEndOf="@id/glName"
+            app:layout_constraintBottom_toBottomOf="@id/rgWheeze"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/colorTextPrimary"
+            android:text="@string/add_symptoms_wheeze"/>
+
+        <RadioGroup
+            android:id="@+id/rgWheeze"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
+            app:layout_constraintStart_toStartOf="@id/glName"
+            app:layout_constraintTop_toBottomOf="@id/rgCouch"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <RadioButton
+                android:id="@+id/rbWheezeMild"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="2"/>
+
+            <RadioButton
+                android:id="@+id/rbWheezeModerate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="2"/>
+
+            <RadioButton
+                android:id="@+id/rbWheezeSevere"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tvOthers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            app:layout_constraintStart_toStartOf="@id/tvWheeze"
+            app:layout_constraintTop_toBottomOf="@id/rgWheeze"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/colorTextPrimary"
+            android:textStyle="bold"
+            android:text="@string/add_symptoms_other_symptoms"/>
+
+        <ImageView
+            android:id="@+id/btnAddMore"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="@dimen/spacing_small"
+            android:padding="@dimen/spacing_small"
+            app:layout_constraintStart_toEndOf="@id/tvOthers"
+            app:layout_constraintTop_toTopOf="@id/tvOthers"
+            app:layout_constraintBottom_toBottomOf="@id/tvOthers"
+            android:background="?attr/selectableItemBackground"
+            android:adjustViewBounds="true"
+            android:tint="@color/colorPrimary"
+            android:src="@drawable/ic_add"
+            tools:ignore="ContentDescription" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:visibility="@{viewModel.addOthers ? View.VISIBLE : View.GONE}"
+            android:id="@+id/etOthers"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/tvOthers"
+            app:layout_constraintTop_toBottomOf="@id/btnAddMore"
+            android:enabled="@{viewModel.addOthers}"
+            android:textSize="@dimen/text_normal"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextPrimary"
+            android:inputType="textCapSentences"/>
+
+        <TextView
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="100dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="@dimen/spacing_very_large"
+            android:padding="@dimen/spacing_small"
+            android:paddingStart="@dimen/spacing_very_large"
+            android:paddingEnd="@dimen/spacing_very_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etOthers"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/bg_rounded_green_ripple"
+            android:textColor="@color/colorWhite"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:text="@string/add_medication_save"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
