@@ -10,6 +10,7 @@ import com.martin.medicationtracker.application.MainApplication
 import com.martin.medicationtracker.base.BaseActivity
 import com.martin.medicationtracker.databinding.ActivitySummaryBinding
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_summary.*
 
 class SummaryActivity : BaseActivity() {
 
@@ -35,16 +36,16 @@ class SummaryActivity : BaseActivity() {
     private fun initViews() {
         summaryAdapter = SummaryAdapter()
         val lm = LinearLayoutManager(this)
-        rvMedications.apply {
+        rvSummary.apply {
             adapter = summaryAdapter
             layoutManager = lm
         }
     }
 
     private fun observeChanges() {
-        viewModel.medications.observe(this, Observer {
-            it?.let { medications ->
-                summaryAdapter?.swapData(medications)
+        viewModel.summaries.observe(this, Observer {
+            it?.let { summaries ->
+                summaryAdapter?.swapData(summaries)
             }
         })
     }

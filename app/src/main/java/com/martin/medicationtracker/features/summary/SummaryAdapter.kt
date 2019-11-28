@@ -1,62 +1,70 @@
 package com.martin.medicationtracker.features.summary
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.martin.medicationtracker.R
-import com.martin.medicationtracker.databinding.ItemGridMedicationBinding
-import com.martin.medicationtracker.models.Medication
-import com.martin.medicationtracker.models.MedicationStatus
+import com.martin.medicationtracker.databinding.ItemSummaryBinding
+import com.martin.medicationtracker.databinding.ItemSummaryHeaderBinding
+import com.martin.medicationtracker.models.Summary
 
-class SummaryAdapter: RecyclerView.Adapter<SummaryAdapter.MedicationViewHolder>() {
+class SummaryAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    interface Listener {
-        fun onConfirmTaken(medication: MedicationStatus)
+    companion object {
+        private const val VIEW_TYPE_HEADER = 1
+        private const val VIEW_TYPE_ITEM = 2
     }
 
-    private val medications = ArrayList<MedicationStatus>()
-    var listener: Listener? = null
+    private val summaries = ArrayList<Summary>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicationViewHolder {
-        val binding: ItemGridMedicationBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_grid_medication, parent, false)
-        return MedicationViewHolder(binding)
+    override fun getItemViewType(position: Int): Int {
+        return if (summaries[position].isHeader) {
+            VIEW_TYPE_HEADER
+        } else {
+            VIEW_TYPE_ITEM
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == VIEW_TYPE_HEADER) {
+            val binding: ItemSummaryHeaderBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_summary_header, parent, false)
+            SummaryHeaderViewHolder(binding)
+        } else {
+            val binding: ItemSummaryBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_summary, parent, false)
+            SummaryViewHolder(binding)
+        }
     }
 
     override fun getItemCount(): Int {
-        return medications.size
+        return summaries.size
     }
 
-    override fun onBindViewHolder(holder: MedicationViewHolder, position: Int) {
-        holder.bind(medications[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val summary = summaries[position]
+        if (summaries[position].isHeader) {
+            (holder as SummaryHeaderViewHolder).bind(summary)
+        } else {
+            (holder as SummaryViewHolder).bind(summary)
+        }
     }
 
-    fun swapData(medications: List<MedicationStatus>) {
-        this.medications.clear()
-        this.medications.addAll(medications)
+    fun swapData(summaries: List<Summary>) {
+        this.summaries.clear()
+        this.summaries.addAll(summaries)
         notifyDataSetChanged()
     }
 
-    inner class MedicationViewHolder(private val binding: ItemGridMedicationBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(medication: MedicationStatus) {
-            binding.tvName.text = medication.name
-            binding.tvDose.text = String.format("%s %s", medication.dose, medication.form)
-            binding.tvFrequency.text = String.format(getString(R.string.medication_frequency), medication.frequency)
-            val time = if (medication.beforeMeal) R.string.medication_before_meal else R.string.medication_after_meal
-            binding.tvTime.text = getString(time)
-            binding.btnConfirmTaken.visibility = if (medication.taken > 0) View.GONE else View.VISIBLE
-            binding.ivDone.visibility = if (medication.taken > 0) View.VISIBLE else View.GONE
-
-            binding.btnConfirmTaken.setOnClickListener {
-                if (medication.taken > 0) return@setOnClickListener
-
-                listener?.onConfirmTaken(medication)
-            }
+    inner class SummaryHeaderViewHolder(private val binding: ItemSummaryHeaderBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(summary: Summary) {
+            binding.tvName.text = summary.date
         }
+    }
 
-        private fun getString(res: Int): String {
-            return itemView.context.getString(res)
+    inner class SummaryViewHolder(private val binding: ItemSummaryBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(summary: Summary) {
+            binding.tvTime.text = summary.time
+            binding.tvValue.text = summary.value
         }
     }
 }

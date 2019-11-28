@@ -6,13 +6,17 @@ import com.martin.medicationtracker.utils.DateTimeUtils
 
 class Summary {
 
+    var isHeader = false
     var date: String = ""
     var time: String = ""
     var value: String = ""
     val createDateInMils: Long
-        get() {
-            
-        }
+        get() = DateTimeUtils.stringToTimeInMils("$date $time")
+
+    constructor(isHeader: Boolean, date: String) {
+        this.isHeader = isHeader
+        this.date = date
+    }
 
     constructor(context: Context, record: MedicationRecord) {
         date = record.createdDate

@@ -7,6 +7,7 @@ import com.martin.medicationtracker.features.addsymptoms.AddSymptomsViewModel
 import com.martin.medicationtracker.injection.ViewModelFactory
 import com.martin.medicationtracker.injection.ViewModelKey
 import com.martin.medicationtracker.features.home.HomeViewModel
+import com.martin.medicationtracker.features.summary.SummaryViewModel
 import com.martin.medicationtracker.features.tutorial.TutorialViewModel
 import dagger.Binds
 import dagger.Module
@@ -36,4 +37,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AddSymptomsViewModel::class)
     abstract fun bindAddSymptomsViewModel(viewModel: AddSymptomsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SummaryViewModel::class)
+    abstract fun bindSummaryViewModel(viewModel: SummaryViewModel): ViewModel
 }

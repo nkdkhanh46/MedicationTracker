@@ -13,6 +13,7 @@ import com.martin.medicationtracker.base.BaseActivity
 import com.martin.medicationtracker.databinding.ActivityHomeBinding
 import com.martin.medicationtracker.features.addmedication.AddMedicationActivity
 import com.martin.medicationtracker.features.addsymptoms.AddSymptomsActivity
+import com.martin.medicationtracker.features.summary.SummaryActivity
 import com.martin.medicationtracker.models.Medication
 import com.martin.medicationtracker.models.MedicationStatus
 import kotlinx.android.synthetic.main.activity_home.*
@@ -56,7 +57,7 @@ class HomeActivity : BaseActivity() {
     private fun setupEvents() {
         btnAddMedication.setOnClickListener { openAddMedicationScreen() }
         btnAddSymptoms.setOnClickListener { openAddSymptomsScreen() }
-        btnSummary.setOnClickListener {  }
+        btnSummary.setOnClickListener { openSummaryScreen() }
     }
 
     private fun openAddMedicationScreen() {
@@ -65,6 +66,10 @@ class HomeActivity : BaseActivity() {
 
     private fun openAddSymptomsScreen() {
         startActivity(Intent(this, AddSymptomsActivity::class.java))
+    }
+
+    private fun openSummaryScreen() {
+        startActivity(Intent(this, SummaryActivity::class.java))
     }
 
     private fun observeChanges() {
