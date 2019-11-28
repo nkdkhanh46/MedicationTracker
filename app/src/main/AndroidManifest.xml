@@ -31,6 +31,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".features.addsymptoms.AddSymptomsActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".features.summary.SummaryActivity"
+            android:screenOrientation="portrait"/>
 
         <receiver android:name=".receivers.AlarmReceiver"/>
     </application>

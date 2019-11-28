@@ -11,6 +11,7 @@ interface DataRepository {
     fun getAllMedications(): LiveData<List<Medication>>
     fun getMedicationsWithStatus(date: String): LiveData<List<MedicationStatus>>
     fun getAllMedicationRecords(): LiveData<List<MedicationRecord>>
+    fun getAllSymptoms(): LiveData<List<Symptoms>>
 
     suspend fun addMedication(medication: Medication): Long
     suspend fun addMedicationRecord(record: MedicationRecord): Long

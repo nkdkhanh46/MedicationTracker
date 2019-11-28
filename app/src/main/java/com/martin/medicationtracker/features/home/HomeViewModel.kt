@@ -17,11 +17,11 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
     userRepository: UserRepository,
-    private val medicationRepository: DataRepository
+    private val dataRepository: DataRepository
 ): ViewModel() {
 
     val user: LiveData<User> = userRepository.getCurrentUser()
-    val medications: LiveData<List<MedicationStatus>> = medicationRepository.getMedicationsWithStatus(
+    val medications: LiveData<List<MedicationStatus>> = dataRepository.getMedicationsWithStatus(
         DateTimeUtils.calToDateString(Calendar.getInstance())
     )
     val username = MutableLiveData<String>()
@@ -45,6 +45,7 @@ class HomeViewModel @Inject constructor(
         medication.getUsingTimes().forEach { time ->
             val record = MedicationRecord(
                 DateTimeUtils.calToDateString(Calendar.getInstance()),
+                medication.name,
                 medication.form,
                 medication.dose,
                 time,
@@ -52,7 +53,7 @@ class HomeViewModel @Inject constructor(
             )
 
             viewModelScope.launch {
-                medicationRepository.addMedicationRecord(record)
+                dataRepository.addMedicationRecord(record)
             }
         }
     }

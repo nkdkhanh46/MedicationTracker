@@ -19,6 +19,8 @@ class DataRepositoryImpl @Inject constructor(private val appDatabase: AppDatabas
 
     override fun getAllMedicationRecords(): LiveData<List<MedicationRecord>> = appDatabase.medicationDao().getAllMedicationRecords()
 
+    override fun getAllSymptoms(): LiveData<List<Symptoms>> = appDatabase.symptomsDao().getAllSymptoms()
+
     override suspend fun addMedication(medication: Medication): Long {
         return appDatabase.medicationDao().insert(medication)
     }

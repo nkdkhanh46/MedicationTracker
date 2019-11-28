@@ -48,4 +48,10 @@
     <string name="add_symptoms_severe">Severe</string>
     <string name="add_symptoms_wheeze">Wheeze</string>
     <string name="add_symptoms_other_symptoms">Other symptoms</string>
+    <string name="summary_title">Summary</string>
+    <string name="summary_record_value">%d %s of %s taken</string>
+    <string name="symptom_severity_mild">Mild</string>
+    <string name="symptom_severity_moderate">Moderate</string>
+    <string name="symptom_severity_severe">Severe</string>
+    <string name="summary_symptoms_value">%s couch\n%s wheeze\n%s</string>
 </resources>

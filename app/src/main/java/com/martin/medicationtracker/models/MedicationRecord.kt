@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 class MedicationRecord(
     @ColumnInfo(name = "created_date")
     var createdDate: String,
+    @ColumnInfo(name = "name")
+    var name: String,
     @ColumnInfo(name = "form")
     var form: String,
     @ColumnInfo(name = "dose")
