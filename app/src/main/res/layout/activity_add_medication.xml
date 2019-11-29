@@ -157,7 +157,7 @@
                 android:background="?attr/selectableItemBackground"
                 android:adjustViewBounds="true"
                 android:tint="@color/colorPrimary"
-                android:src="@drawable/ic_add"
+                android:src="@drawable/ic_minus"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -209,7 +209,7 @@
                 android:background="?attr/selectableItemBackground"
                 android:adjustViewBounds="true"
                 android:tint="@color/colorPrimary"
-                android:src="@drawable/ic_add"
+                android:src="@drawable/ic_minus"
                 tools:ignore="ContentDescription" />
 
             <TextView
